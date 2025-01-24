@@ -8,5 +8,14 @@ namespace Bloggen.UserInterface
 {
     public class UserInterface : IUserInterface
     {
+        public void ReadUserInput(string input)
+        {
+            Console.ReadLine();
+        }
+
+        public void PrintOnScreen()
+        {
+            Console.WriteLine();
+        }
     }
 }

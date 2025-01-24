@@ -8,6 +8,8 @@ namespace Bloggen.UserInterface
 {
     public interface IUserInterface
     {
-
+        void PrintOnScreen();
+        void ReadUserInput(string input);
+        
     }
 }

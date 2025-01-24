@@ -43,8 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MenuController.cs" />
     <Compile Include="Controller.cs" />
-    <Compile Include="Post.cs" />
+    <Compile Include="PostAPI.cs" />
+    <Compile Include="PostInfo\Post.cs" />
+    <Compile Include="PostInfo\IPost.cs" />
+    <Compile Include="PostInfo\IPostFunctions.cs" />
+    <Compile Include="PostInfo\PostList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInterface\IUserInterface.cs" />
