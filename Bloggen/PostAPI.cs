@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Bloggen.PostInfo;
 
-
 namespace Bloggen
 {
     public class PostAPI
@@ -49,6 +48,7 @@ namespace Bloggen
         }
         public void RemovePost()
         {
+            MenuController menu = new MenuController();
             Console.Clear();
             if (Posts.Count() > 0)
             {
@@ -73,13 +73,12 @@ namespace Bloggen
                 }
                 else if (answerToDeletion == "N" || answerToDeletion == "n")
                 {
-                    Console.Clear();
+                    menu.ReturnToMenu();
                 }
                 else
                 {
                     Console.WriteLine("\tVar god ange antingen J/N: ");
                 }
-                Menu.ReturnToMenu();
             }
             else
             {
@@ -87,8 +86,12 @@ namespace Bloggen
                 Console.WriteLine("\n\tdet finns inga inlägg. \n\tvar god skriv till några.");
 
             }
-            Menu.ReturnToMenu();
+            menu.ReturnToMenu();
             Console.Clear();
+        }
+        public PostAPI()
+        {
+            
         }
     }
 }

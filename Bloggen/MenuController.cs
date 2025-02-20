@@ -9,7 +9,6 @@ namespace Bloggen
 {
     public class MenuController
     {
-
         private static List<Post> Posts = new List<Post>();
         //The information on main page 
         public static void PrintMenu()
@@ -29,55 +28,81 @@ namespace Bloggen
 
         public static void HandleMenuOptions()
         {
+            PostAPI postAPI = new PostAPI();
+            MenuController menuController = new MenuController();
             Console.Write("Input: ");
             Int32.TryParse(Console.ReadLine(), out int svar);
 
             switch (svar)
             {
                 case 1:
-                    //Add post
+                    postAPI.AddPost();
                     break;
 
                 case 2:
-                    //Find post
+                    postAPI.GetPost();
                     break;
 
                 case 3:
-                    //Delete post
+                    postAPI.RemovePost();
                     break;
 
                 case 4:
-                    Console.Clear();
-                    if (Posts.Count() > 0)
-                    {
-                        Console.Write("\tSkriv in ditt svar: "); Console.WriteLine("\n\tHur vill du sortera?" +
-                                   "\n\t1) Titel" +
-                                   "\n\t2) Innehåll" +
-                                   "\n\t3) Datum");
-                        Console.Write("\tInput: ");
-
-                        int answer = Convert.ToInt32(Console.ReadLine());
-                        if (answer == 1)
-                            Posts.OrderBy(o => o.PostTitle);
-                        else if (answer == 2)
-                            Posts.OrderBy(o => o.PostContent);
-                        else if (answer == 3)
-                            Posts.OrderBy(o => o.DatePosted);
-                        else
-                            Console.WriteLine("Please enter a number between 1-3");
-                        break;
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("\tDet finns inga inlägg. \n\tVar god skriv till några.");
-                    }
-                    ReturnToMenu();
+                    menuController.OrderPostList();
                     break;
 
-                //Linear search - convert to match with a generic list.
                 case 5:
-                    Console.Clear();
+                    menuController.SearchPostList();
+                    //Search - convert to match with a generic list.
+                    break;
+
+                case 7:
+                    bool menu = false;
+                    break;
+                default:
+                    Console.WriteLine("\n\tVar god ange ett tal mellan 1-7.");
+                    break;
+            }
+        }
+        public async Task ReturnToMenu()
+        {
+            Console.WriteLine("\tTryck ENTER för att återvända till menyn.");
+            Console.WriteLine("\t Returning to menu soon.");
+            await Task.Delay(1000);
+            Console.Clear();
+        }
+
+        public void OrderPostList()
+        {
+            Console.Clear();
+            if (Posts.Count() > 0)
+            {
+                Console.Write("\tSkriv in ditt svar: "); Console.WriteLine("\n\tHur vill du sortera?" +
+                           "\n\t1) Titel" +
+                           "\n\t2) Innehåll" +
+                           "\n\t3) Datum");
+                Console.Write("\tInput: ");
+
+                int answer = Convert.ToInt32(Console.ReadLine());
+                if (answer.Equals(1))
+                    Posts.OrderBy(o => o.PostTitle);
+                else if (answer.Equals(2))
+                    Posts.OrderBy(o => o.PostContent);
+                else if (answer.Equals(3))
+                    Posts.OrderBy(o => o.DatePosted);
+                else
+                    Console.WriteLine("Please enter a number between 1-3");
+            }
+            else
+            {
+                Console.WriteLine("\tDet finns inga inlägg. \n\tVar god skriv till några.");
+            }
+            ReturnToMenu();
+        }
+
+        public void SearchPostList()
+        {
+            /*Console.Clear();
                     if (Posts.Count() > 0)
                     {
 
@@ -294,24 +319,7 @@ namespace Bloggen
                                 "\n\tVar god skriv till några.");
                             ReturnToMenu();
                         }*/
-                    break;
-
-                case 7:
-                    bool menu = false;
-                    break;
-                default:
-                    Console.WriteLine("\n\tVar god ange ett tal mellan 1-7.");
-                    break;
-            }
         }
-        public static void ReturnToMenu()
-        {
-            Console.WriteLine("\tTryck ENTER för att återvända till menyn.");
-            Console.ReadLine();
-            Console.Clear();
-        }
-
-
 
     }
 }
