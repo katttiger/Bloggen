@@ -34,11 +34,5 @@ namespace Bloggen.Tests
         {
             Assert.Fail();
         }
-
-        [TestMethod()]
-        public void PostAPITest()
-        {
-            Assert.Fail();
-        }
     }
 }

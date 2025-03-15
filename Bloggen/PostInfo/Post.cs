@@ -9,7 +9,7 @@ namespace Bloggen.PostInfo
         public int Id { get; set; }
         public string PostTitle { get; set; }
         public string PostContent { get; set; }
-        public DateTime DatePosted { get; set; } = DateTime.Now;
+        public DateTime DatePosted { get; set; }
 
         public Post(string postTile, string postContent)
         {

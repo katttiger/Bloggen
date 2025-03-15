@@ -8,6 +8,7 @@ namespace Bloggen
     public class PostAPI
     {
         List<IPost> Posts = new List<IPost>();
+        private readonly MenuController Menu = new MenuController();
 
         public void AddPost()
         {
@@ -22,8 +23,7 @@ namespace Bloggen
             
             Posts.Add(NewPost);
         }
-
-        public void GetPost()
+        public void GetPosts()
         {
             Console.Clear();
             if (Posts.Count > 0)
@@ -32,66 +32,78 @@ namespace Bloggen
                 {
                     Console.WriteLine(
                         $"\n Title: {post.PostTitle}, posted {post.DatePosted.ToString().ToUpper()}" +
-                        $"\n {post.PostContent}" +
-                        "\n\t---End of Post----");
+                        $"\n {post.PostContent.Substring(0, 200)}" +
+                        "\n---End of Post----");
                 }
             }
             else
             {
                 Console.WriteLine("\n\tDet finns inga inlägg. Var god skriv till några.");
             }
-        }
-     
-        public void GetPosts()
+        }     
+        public void GetPost()
         {
-
+            //Enter an index or keyword
+            //Call a search function
+            //Print post
         }
+
+        //----------------------------------------------------------
+
         public void RemovePost()
         {
-            MenuController menu = new MenuController();
             Console.Clear();
             if (Posts.Count() > 0)
             {
                 Console.Write("\n\tDu vill radera ett inlägg.");
-                foreach (var post in Posts)
-                {
-                    Console.WriteLine($"\n{Posts.IndexOf(post)}: {post.PostTitle}");
-                }
-
-                Console.Write("\n\tAnge inläggets platsnummer: ");
-                int postChosenForDeletion = Convert.ToInt32(Console.ReadLine());
-                var itemSelected = Posts.ElementAt(postChosenForDeletion);
-                Console.WriteLine(
-                    $"Item chosen: {itemSelected.PostTitle} {itemSelected.DatePosted} \n {itemSelected.PostContent}");
-                Console.Write("\tÖnskar du ta bort detta inlägg? J/N: ");
-                
-                string answerToDeletion = Console.ReadLine();
-                if (answerToDeletion == "J" || answerToDeletion == "j")
-                {
-                    Posts.RemoveAt(postChosenForDeletion);
-                    Console.WriteLine("Inlägget har raderats");
-                }
-                else if (answerToDeletion == "N" || answerToDeletion == "n")
-                {
-                    menu.ReturnToMenu();
-                }
-                else
-                {
-                    Console.WriteLine("\tVar god ange antingen J/N: ");
-                }
+                PrintListOfPostsTitleAndIndex(Posts);
+                int postChosenForDeletion = ChosePostToDelete(Posts);
+                ConfirmDeletionOfPost(postChosenForDeletion);
             }
             else
             {
-
-                Console.WriteLine("\n\tdet finns inga inlägg. \n\tvar god skriv till några.");
-
+                Console.WriteLine("\nDet finns inga inlägg. \n Var god skriv några.");
             }
-            menu.ReturnToMenu();
+            Menu.ReturnToMenu();
             Console.Clear();
         }
-        public PostAPI()
+        public void PrintListOfPostsTitleAndIndex(List<IPost> Postlist)
         {
-            
+            foreach (var post in Posts)
+            {
+                Console.WriteLine($"\n{Posts.IndexOf(post)}: {post.PostTitle}");
+            }
+
         }
+        public int ChosePostToDelete(List<IPost> Posts)
+        {
+            Console.Write("\n\tAnge inläggets platsnummer: ");
+            int postChosenForDeletion = Convert.ToInt32(Console.ReadLine());
+            var itemSelected = Posts.ElementAt(postChosenForDeletion);
+            Console.WriteLine($"Item chosen: {itemSelected.PostTitle} {itemSelected.DatePosted} \n {itemSelected.PostContent}");
+            return postChosenForDeletion;
+        }
+
+        public void ConfirmDeletionOfPost(int postChosenForDeletion)
+        {
+            Console.Write("\tÖnskar du ta bort detta inlägg? J/N: ");
+
+            string answerToDeletion = Console.ReadLine();
+            if (answerToDeletion == "J" || answerToDeletion == "j")
+            {
+                Posts.RemoveAt(postChosenForDeletion);
+                Console.WriteLine("Inlägget har raderats");
+            }
+            else if (answerToDeletion == "N" || answerToDeletion == "n")
+            {
+                Menu.ReturnToMenu();
+
+            }
+            else
+            {
+                Console.WriteLine("\tVar god ange antingen J/N: ");
+            }
+        }
+
     }
 }
