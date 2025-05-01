@@ -8,10 +8,7 @@ namespace Bloggen.PostInfo
 {
     public interface IPostFunctions
     {
-        string BinarySearch(string key, string element, int last, int first);
-
-        string LinearSearch(string key, int length, string element);
-
-        
+        void OrderPostList();
+        void SearchPostList();
     }
 }

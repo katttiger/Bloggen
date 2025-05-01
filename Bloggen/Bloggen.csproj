@@ -46,6 +46,7 @@
     <Compile Include="MenuController.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="PostAPI.cs" />
+    <Compile Include="PostFunctions.cs" />
     <Compile Include="PostInfo\Post.cs" />
     <Compile Include="PostInfo\IPost.cs" />
     <Compile Include="PostInfo\IPostFunctions.cs" />
