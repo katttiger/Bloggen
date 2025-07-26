@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Bloggen.PostInfo;
 
 namespace Bloggen
@@ -8,9 +9,14 @@ namespace Bloggen
     public class PostAPI
     {
         List<IPost> Posts = new List<IPost>();
-        private readonly MenuController Menu = new MenuController();
+        private MenuController Menu { get; set; }
 
-        public void AddPost()
+        public PostAPI()
+        {
+            Menu= new MenuController();
+        }
+
+        public async Task AddPost()
         {
             Console.Clear();
             Console.Write("Ange titel: ");
@@ -20,9 +26,15 @@ namespace Bloggen
             string content = Console.ReadLine();
            
             Post NewPost = new Post(title, content);
-            
+
             Posts.Add(NewPost);
+            Task.Delay(1000).Wait();
+            Console.WriteLine("Post has been added");
+            Menu.ReturnToMenu();
+            Menu.PrintMenu();
+            Console.ReadLine();
         }
+
         public void GetPosts()
         {
             Console.Clear();
@@ -83,7 +95,6 @@ namespace Bloggen
             Console.WriteLine($"Item chosen: {itemSelected.PostTitle} {itemSelected.DatePosted} \n {itemSelected.PostContent}");
             return postChosenForDeletion;
         }
-
         public void ConfirmDeletionOfPost(int postChosenForDeletion)
         {
             Console.Write("\tÖnskar du ta bort detta inlägg? J/N: ");

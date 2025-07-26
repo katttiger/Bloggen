@@ -9,22 +9,21 @@ namespace Bloggen
     public class MenuController
     {
         private static List<Post> Posts = new List<Post>();
-        //The information on main page 
-        public static void PrintMenu()
+        public void PrintMenu()
         {
             Console.Clear();
-            string menuMessage=string.Empty; 
+            string menuMessage = string.Empty;
             if (Posts.Count > 0)
             {
-                 menuMessage =
-                    "\nVälkommen till bloggen.\n" +
-                     "\n1) Skriva ett inlägg" +
-                     "\n2) Skriv ut alla inlägg" +
-                     "\n3) Radera ett inlägg" +
-                     "\n4) Sortera inlägg" +
-                     "\n5) Linjär sökning" +
-                     "\n6) Binär sökning" +
-                     "\n7) Avsluta programmet";
+                menuMessage =
+                   "\nVälkommen till bloggen.\n" +
+                    "\n1) Skriva ett inlägg" +
+                    "\n2) Skriv ut alla inlägg" +
+                    "\n3) Radera ett inlägg" +
+                    "\n4) Sortera inlägg" +
+                    "\n5) Linjär sökning" +
+                    "\n6) Binär sökning" +
+                    "\n7) Avsluta programmet";
             }
             else
             {
@@ -33,7 +32,7 @@ namespace Bloggen
                     "\n1) Skriva ett inlägg " +
                     "\n7) Avsluta programmet";
             }
-                Console.WriteLine(menuMessage);
+            Console.WriteLine(menuMessage);
         }
 
         public static void HandleMenuOptions()
@@ -43,36 +42,46 @@ namespace Bloggen
             Console.Write("Input: ");
             Int32.TryParse(Console.ReadLine(), out int svar);
 
-                if (svar.Equals(1)) {
-                    postAPI.AddPost();
-                }
-               else if(svar.Equals(2)) {
-                    postAPI.GetPost();
-                        }
-                else if (svar.Equals(3)) {
-                    postAPI.RemovePost();
-                }
-                else if (svar.Equals(4)) {
-                    menuController.OrderPostList();
-                }
-                else if (svar.Equals(5)) {
-                    menuController.SearchPostList();
-                }
-                else if (svar.Equals(6)) {
-                Environment.Exit(0);
-                }
-                else
-                {
-                    Console.WriteLine("\n\tVar god ange ett tal mellan 1-7.");
-                }
+            if (svar.Equals(1))
+            {
+                postAPI.AddPost();
             }
-       
+            else if (svar.Equals(2))
+            {
+                postAPI.GetPost();
+            }
+            else if (svar.Equals(3))
+            {
+                postAPI.RemovePost();
+            }
+            else if (svar.Equals(4))
+            {
+// menuController.OrderPostList();
+            }
+            else if (svar.Equals(5))
+            {
+                //menuController.SearchPostList();
+            }
+            else if (svar.Equals(6))
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.WriteLine("\n\tVar god ange ett tal mellan 1-7.");
+            }
+        }
+
         public async Task ReturnToMenu()
         {
             Console.WriteLine("\tTryck ENTER för att återvända till menyn.");
+            Console.ReadLine();
             Console.WriteLine("\t Returning to menu soon.");
             await Task.Delay(1000);
-            Console.Clear();
+            PrintMenu();
+            Console.ReadLine();
         }
+    }
+}
 
       

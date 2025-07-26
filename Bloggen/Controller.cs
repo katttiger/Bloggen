@@ -10,11 +10,14 @@ namespace Bloggen
 {
     public class Controller
     {
-        public Controller() { }
-
+        MenuController menuController { get; set; }
+        public Controller()
+        {
+            menuController = new MenuController();
+        }
         public void Run()
         {
-            MenuController.PrintMenu();
+            menuController.PrintMenu();
             MenuController.HandleMenuOptions();
         }
     }
